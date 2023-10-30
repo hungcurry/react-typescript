@@ -12,7 +12,7 @@ const Title: React.FC<TitleProps<string>> = ({ name }) => {
   return <p>Props:{name}</p>
 }
 
-const User: React.FC = () => {
+const Home: React.FC = () => {
   // 單數類型 會自動推導
   const [count] = useState(1200)
   // 複數類型
@@ -28,4 +28,4 @@ const User: React.FC = () => {
   )
 }
 
-export default User
+export default Home

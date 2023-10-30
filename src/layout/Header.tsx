@@ -10,9 +10,15 @@ const Header: React.FC = () => {
           <NavLink to="/">
             <p>回到首頁</p>
           </NavLink>
+
+          <NavLink to="/nested">
+            <p>Nested巢狀頁面</p>
+          </NavLink>
+
           {/* <NavLink to="/reduex">
             <p>清單頁面</p>
           </NavLink> */}
+          
           {/* <NavLink to="/card">
             <p>input首頁</p>
           </NavLink> */}
@@ -49,9 +55,9 @@ const Header: React.FC = () => {
             <p>customHook頁面</p>
           </NavLink> */}
 
-          <NavLink to="/fragments">
+          {/* <NavLink to="/fragments">
             <p>Fragments頁面</p>
-          </NavLink>
+          </NavLink> */}
 
         </div>
       </header>
