@@ -1,11 +1,11 @@
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom'
 // ===================
 // ... page ...
 // ===================
 import Home from '@/pages/Home.tsx'
-import Nested from "@/pages/Nested/index.tsx";
-import NestedAbout from '@/pages/Nested/NestedAbout.tsx';
-import NestedProducts from '@/pages/Nested/NestedProducts.tsx';
+import Nested from '@/pages/Nested/index.tsx'
+import NestedAbout from '@/pages/Nested/NestedAbout.tsx'
+import NestedProducts from '@/pages/Nested/NestedProducts.tsx'
 
 import Card from '@/pages/Card/index.tsx'
 import Reduex from '@/pages/Reduex.tsx'
@@ -20,6 +20,9 @@ import UseReducer from '@/pages/UseReducer.tsx'
 import UseRef from '@/pages/UseRef.tsx'
 import CustomHook from '@/pages/CustomHook.tsx'
 import Fragments from '@/pages/Fragments.tsx'
+
+//System Test
+import BaseTest from '@/pages/BaseTest.tsx'
 
 const routes = [
   {
@@ -86,9 +89,14 @@ const routes = [
     path: '/fragments',
     element: <Fragments />,
   },
-];
+  // ------
+  {
+    path: '/baseTest',
+    element: <BaseTest />,
+  },
+]
 
 const AppRoutes: React.FC = () => {
-  return useRoutes(routes);
+  return useRoutes(routes)
 }
-export default AppRoutes;
+export default AppRoutes
