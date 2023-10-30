@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 // ----------------------------
 // 基本型別
 // ----------------------------
-let str1: string = 'curry' // 正規寫法
-let str2 = 'curry' // 簡化專案寫法 會自動推導型別
+const str1: string = 'curry' // 正規寫法
+const str2 = 'curry' // 簡化專案寫法 會自動推導型別
 let str3: string // 宣告一個尚未定義的字串
 // !str3 = 999 => 如果設定num,這時候就會出錯警告
 
-let num1: number = 1000
-let num2 = 1000
-let boo1: boolean = true
-let boo2 = true
-let n: null = null
-let un: undefined = undefined
+const num1: number = 1000
+const num2 = 1000
+const boo1: boolean = true
+const boo2 = true
+const n: null = null
+const un: undefined = undefined
 
-let any: any = '' // any 任何型別都可,不建議別用
+const any: never = '' // any 任何型別都可,不建議別用
 // ----------------------------
 // Union 合併|
 // ----------------------------
@@ -26,12 +28,12 @@ union = 'str'
 // 陣列
 // ----------------------------
 // @基本
-let ary1: string[] = ['a', 'b']
-let ary2: string[][] = [['aa', 'bb']] // 二維陣列
+const ary1: string[] = ['a', 'b']
+const ary2: string[][] = [['aa', 'bb']] // 二維陣列
 
 // @元祖
-let tuple: [number, string, boolean] = [1, 'a', true]
-let tuple2: [string, string][] = [['a', 'b']] // 二維陣列
+const tuple: [number, string, boolean] = [1, 'a', true]
+const tuple2: [string, string][] = [['a', 'b']] // 二維陣列
 
 // ----------------------------
 // Enum 枚舉
@@ -241,18 +243,18 @@ const beta = data1 as unknown as Beta
 
 // -----------
 // 1.變數型別斷言：
-let myVariable: any = 'Hello, World'
-let strLength = (myVariable as string).length
+const myVariable: any = 'Hello, World'
+const strLength = (myVariable as string).length
 // 斷言 myVariable 為 string，以訪問 length 屬性
 
 // 2.型別轉換：
-let myValue: any = 42
-let myNumber: number = myValue as number
+const myValue: any = 42
+const myNumber: number = myValue as number
 // 將 myValue 轉換為 number 型別
 
 // 3.物件型別斷言：
-let obj3: any = { name: 'Alice' }
-let person = obj3 as { name: string }
+const obj3: any = { name: 'Alice' }
+const person = obj3 as { name: string }
 // 斷言 obj 是具有 name 屬性的物件
 
 // 這表示您希望 buttons 這個陣列中的
@@ -267,8 +269,8 @@ interface Person {
   name: string
   age: number
 }
-let data: any = { name: 'Bob', age: 30 }
-let personData = data as Person // 斷言 data 符合 Person 接口的結構
+const data: any = { name: 'Bob', age: 30 }
+const personData = data as Person // 斷言 data 符合 Person 接口的結構
 
 // 5.函數的型別斷言：
 function calculateTotal(a: number, b: number): number {
