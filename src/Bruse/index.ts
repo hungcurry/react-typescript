@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 // ----------------------------
 // 基本型別
 // ----------------------------
@@ -15,7 +14,7 @@ const boo2 = true
 const n: null = null
 const un: undefined = undefined
 
-const any: never = '' // any 任何型別都可,不建議別用
+const any: any = '' // any 任何型別都可,不建議別用
 // ----------------------------
 // Union 合併|
 // ----------------------------
@@ -35,19 +34,81 @@ const ary2: string[][] = [['aa', 'bb']] // 二維陣列
 const tuple: [number, string, boolean] = [1, 'a', true]
 const tuple2: [string, string][] = [['a', 'b']] // 二維陣列
 
+// @1.型別 + 方括號：type[]
+// string[] 一維陣列並且只能能放字串
+const ary3: string[] = ['a', 'b']
+const ary4: string[][] = [['aa', 'bb']] // 二維陣列
+
+const numbers: number[] = [1, 2, 3, 4, 5];
+const fruits: string[] = ["蘋果", "香蕉", "橙子"];
+
+// const ary5: number[] = [1, '1', 2, 3, 5];
+// 一旦宣告型別，陣列的項中就不允許出現其他型別，否則會報錯：
+// Type 'string' is not assignable to type 'number'.
+
+// 常使用 any 來表示陣列中允許出現任意型別
+const list: any[] = ['heidiliu', 99, { website: 'https://github.com/heidiliu2020' }];
+
+// @2.陣列泛型（Array Generic）：Array<elemType>
+const colors: Array<string> = ["紅色", "藍色", "綠色"];
+const ages: Array<number> = [25, 30, 35, 40];
+
+// @3.用介面表示陣列
+interface Person {
+  name: string;
+  age: number;
+}
+const people: Person[] = [
+  { name: "小明", age: 25 },
+  { name: "小華", age: 30 },
+  { name: "小美", age: 35 },
+];
+
+// @4.類別陣列（Array-like Object）
+const arrayLikeObject: { length: number; 0: string; 1: string; 2: string } = {
+  length: 3,
+  0: "台北",
+  1: "紐約",
+  2: "東京"
+};
+const numbersArrayLike: { length: number; [index: number]: number } = {
+  length: 4,
+  0: 10,
+  1: 20,
+  2: 30,
+  3: 40
+};
+
 // ----------------------------
 // Enum 枚舉
 // ----------------------------
+// 原理
+enum Color {Red, Green, Blue}    // 0, 1, 2
+const pickColor: Color = Color.Green;       // 1
+// console.log('pick', pickColor)
+// -----------------------
+// "use strict";
+// var Color;
+// (function (Color) {
+//     Color[Color["Red"] = 0] = "Red";
+//     Color[Color["Green"] = 1] = "Green";
+//     Color[Color["Blue"] = 2] = "Blue";
+// })(Color || (Color = {}));
+// ;
+// let c = Color.Green;
+
+
 // 開直播api => 獲取直播狀態
 // 成功 失敗 直播中
 // 0 -1  1
-
-enum LiveStatus {
+export enum LiveStatus {
   SUCCESS = 0,
   FAIL = -1,
   STREAMING = 1,
 }
-const state = LiveStatus.SUCCESS
+// import { LiveStatus } from 'xxxxxx';
+
+const state = LiveStatus.SUCCESS // 0
 // console.log('state', state)
 
 // ----------------------------
@@ -122,14 +183,12 @@ const tableData: User2[] = [
 function hello(a: string, b: string): string {
   return a + b
 }
-
 function hello2(a: string, b: string): number {
   return 999
 }
 function hello3(a: number, b: boolean, c: string) {
   return 999
 }
-
 // undefined 有問號的要放最後
 function hello4(name: string, age?: number) {
   // 狀況1
@@ -140,7 +199,6 @@ function hello4(name: string, age?: number) {
   // !a = age
   return
 }
-
 function child(a: number) {
   // console.log('a', a)
 }
@@ -190,6 +248,46 @@ const tableRowClassName = ({
 // ----------------------------
 // as 和 unknown 型別斷言（Type Assertion）
 // ----------------------------
+// 1.變數型別斷言：
+const myVariable: any = 'Hello, World'
+const strLength = (myVariable as string).length
+// 斷言 myVariable 為 string，以訪問 length 屬性
+
+// 2.型別轉換：
+const myValue: any = 42
+const myNumber: number = myValue as number
+// 將 myValue 轉換為 number 型別
+
+// 3.物件型別斷言：
+const obj3: any = { name: 'Alice' }
+const person = obj3 as { name: string }
+// 斷言 obj 是具有 name 屬性的物件
+
+// 這表示您希望 buttons 這個陣列中的
+// 每個物件的屬性值都是不可變的（immutable）
+const buttons = [
+  { type: '', text: 'plain' },
+  { type: 'primary', text: 'primary' },
+] as const
+
+// 4.接口型別斷言：
+interface Person {
+  name: string
+  age: number
+}
+const data: any = { name: 'Bob', age: 30 }
+const personData = data as Person // 斷言 data 符合 Person 接口的結構
+
+// 5.函數的型別斷言：
+function calculateTotal(a: number, b: number): number {
+  return a + b
+}
+const result = (calculateTotal as (x: number, y: number) => number)(5, 3)
+// 斷言 calculateTotal 函數的型別
+
+
+// @利用as接API
+// -----------------
 // 如果資料原本是這樣
 const initdata = {
   userId: 1,
@@ -241,43 +339,26 @@ const beta = data1 as unknown as Beta
 // }
 // getData();
 
-// -----------
-// 1.變數型別斷言：
-const myVariable: any = 'Hello, World'
-const strLength = (myVariable as string).length
-// 斷言 myVariable 為 string，以訪問 length 屬性
 
-// 2.型別轉換：
-const myValue: any = 42
-const myNumber: number = myValue as number
-// 將 myValue 轉換為 number 型別
-
-// 3.物件型別斷言：
-const obj3: any = { name: 'Alice' }
-const person = obj3 as { name: string }
-// 斷言 obj 是具有 name 屬性的物件
-
-// 這表示您希望 buttons 這個陣列中的
-// 每個物件的屬性值都是不可變的（immutable）
-const buttons = [
-  { type: '', text: 'plain' },
-  { type: 'primary', text: 'primary' },
-] as const
-
-// 4.接口型別斷言：
-interface Person {
-  name: string
-  age: number
+// @拿到Length
+// -----------------
+// function getLength(something: string | number): number {
+//   if (something.length) {
+//       return something.length;
+//   } else {
+//       return something.toString().length;
+//   }
+// }
+function getLength(something: string | number): number {
+  if ( (something as string).length) {
+      return (something as string).length;
+  } else {
+      return something.toString().length;
+  }
 }
-const data: any = { name: 'Bob', age: 30 }
-const personData = data as Person // 斷言 data 符合 Person 接口的結構
+// console.log(getLength(12345)) // 5
+// console.log(getLength("abc")) // 3
 
-// 5.函數的型別斷言：
-function calculateTotal(a: number, b: number): number {
-  return a + b
-}
-const result = (calculateTotal as (x: number, y: number) => number)(5, 3)
-// 斷言 calculateTotal 函數的型別
 
 // ----------------------------
 // class
@@ -367,12 +448,12 @@ interface ListItem {
   imgUrl: string
   name: string
 }
-const multipleSelection = ref<User[]>([])
-const lists = ref<ListItem[]>([])
+// ~const multipleSelection = ref<User[]>([])
+// ~const lists = ref<ListItem[]>([])
 // <ListItem[]>：這表示 lists是一個泛型變數，
 // 允許您指定陣列[]中元素的類型,是一個ListItem 的物件類型
 
-const Ref = ref<Type<typeof ElTable>>()
+// ~const Ref = ref<Type<typeof ElTable>>()
 // - `<T>`: 這部分表示一個泛型參數，通常用來指定型別或類別。
 // - `T<typeof ElTable>`: 這個表達式是在指定 `T` 泛型時使用的。`T` 泛型被用來指定變數 `Ref` 的型別，
 // - 而`typeof ElTable` 則表示取得 `ElTable` 元件的型別。
@@ -381,7 +462,7 @@ const Ref = ref<Type<typeof ElTable>>()
 // 這將讓您在 `Ref` 中存儲一個 `ElTable` 元件的實例，並且該變數是響應式的，
 // 這意味著當 `ElTable` 的實例發生變化時，該變數也會自動反應這些變化。
 
-const checked = ref<boolean | string | number>(false)
+// ~const checked = ref<boolean | string | number>(false)
 
 // @函式
 function print<T>(data: T) {
@@ -396,6 +477,62 @@ const print2 = <T>(data: T) => {
   // console.log(`泛型:data`, data);
 }
 
+// @泛型約束
+function pluse<T extends number>(par1: T, par2: T) {
+  // console.log(par1 + par2)
+}
+pluse<number>(5, 6) //5 6
+
+// @泛型type
+type Obj = { name: string; age: number }
+const data2: Obj = { name: 'Jack', age: 26 }
+function hello6<T>(data:T){
+  // console.log(data) // { name:"Jack", age:26}
+  return data
+}
+hello6(data2)
+
+
+// @泛型interface
+interface UserName<T> {
+  name: string
+  desc: T
+}
+const User: UserName<string> = {
+  name: '123',
+  desc: '777',
+}
+const User2: UserName<number> = {
+  name: '456',
+  desc: 888,
+}
+// console.log(`User` , User);
+// console.log(`User2` , User2);
+
+
+// @泛型interface + 函式
+// interface的泛型決定isWork的資料類別
+interface UserInterface<T> {
+  name: string
+  age: number
+  isWork:T
+}
+// function test的泛型決定了所傳入參數的類別之外，也決定了
+// return的資料型別為interface UserInterface，又因為
+// interface有泛型所以isWork的資料類別也會跟著決定
+function test<U>(data:U):UserInterface<U>{
+  const userData:UserInterface<U> = {
+    name: "Jack",
+    age: 54,
+    isWork:data
+  }
+  return userData
+}
+test<boolean>(true)
+// console.log(test<boolean>(true));
+//{name: 'Jack', age: 54, isWork: true}
+
+
 // @class
 class Print<T> {
   data: T
@@ -408,6 +545,27 @@ const payload = new Print<number>(999)
 const payload2 = new Print<string>('curry')
 // console.log(`泛型:payload` , payload);
 // console.log(`泛型:payload2` , payload2);
+
+// @泛型interface + class
+interface CarInterface<T> {
+  carName: string
+  carNumber: number
+  carModel: T
+}
+// 實現implements
+class CarTYpe<U> implements CarInterface<U>{
+  carName: string
+  carNumber: number
+  carModel: U
+  constructor(name: string, number: number, model: U) {
+    this.carName = name
+    this.carNumber = number
+    this.carModel = model
+  }
+}
+const myCar = new CarTYpe<string>("new car", 12345, "fast type")
+// console.log(`carName:${myCar.carName},carNumber:${myCar.carNumber},carModel:${myCar.carModel}`)
+//carName:new car,carNumber:12345,carModel:fast type
 
 // ----------------------------
 // Utility Types
