@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
 
-const Child = ({ count, getData }) => {
+const Child = ({ count, getData }: { count: number; getData: () => void }) => {
   useEffect(() => {
     getData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return <div>{count}</div>
