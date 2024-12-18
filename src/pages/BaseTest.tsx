@@ -1,44 +1,25 @@
-import { useState, useCallback } from 'react'
-import Child from '@/component/Child'
-
-// 定義父元件數據類型
-type TparentData = {
-  title?: string
-  count?: number
-  isActive?: boolean
-  items?: string[]
-  config?: {
-    theme?: 'light' | 'dark'
-    size?: 'sm' | 'md' | 'lg'
-  }
+// 定義 Props 型別
+type TProps = {
+  name: string // 必填
+  age?: number // 可選
 }
-// 定義初始數據
-const initialState: TparentData = {
-  title: 'React 父子元件範例',
-  count: 0,
-  isActive: true,
-  items: ['Apple', 'Banana', 'Cherry'],
-  config: {
-    theme: 'light',
-    size: 'md',
-  },
-}
-const Parent = () => {
-  const [parentData, setParentData] = useState(initialState)
 
-  // 使用 useCallback 優化事件處理函數
-  const handleUpdate = useCallback((newCount: number) => {
-    console.log('父接收資料 newCount:', newCount)
-    setParentData((prev) => ({ ...prev, count: newCount }))
-  }, [])
-
-  const handleSubmit = useCallback((newData: { id: number; name: string }) => {
-    console.log('父接收資料 newData:', newData)
-  }, [])
-
+// 元件定義
+const Child = ({ name, age }: TProps) => {
   return (
     <div>
-      <Child {...parentData} onUpdate={handleUpdate} onSubmit={handleSubmit} />
+      <h1>Hello, {name}!</h1>
+      {age && <p>You are {age} years old.</p>}
+    </div>
+  )
+}
+
+// 使用 Greeting 元件
+const Parent = () => {
+  return (
+    <div>
+      <Child name="Alice" />
+      <Child name="Bob" age={25} />
     </div>
   )
 }

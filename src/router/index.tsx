@@ -6,20 +6,20 @@ import Home from '@/pages/Home.tsx'
 import Nested from '@/pages/Nested/index.tsx'
 import NestedAbout from '@/pages/Nested/NestedAbout.tsx'
 import NestedProducts from '@/pages/Nested/NestedProducts.tsx'
-
 import Card from '@/pages/Card/index.tsx'
 import Reduex from '@/pages/Reduex.tsx'
+import Props from '@/pages/Props'
 
 // RAY react
-import UseState from '@/pages/UseState.tsx'
-import UseEffect from '@/pages/UseEffect.tsx'
-import UseContext from '@/pages/UseContext.tsx'
-import UseMemo from '@/pages/UseMemo.tsx'
-import UseCallback from '@/pages/UseCallback.tsx'
-import UseReducer from '@/pages/UseReducer.tsx'
-import UseRef from '@/pages/UseRef.tsx'
-import CustomHook from '@/pages/CustomHook.tsx'
-import Fragments from '@/pages/Fragments.tsx'
+import UseState from '@/pages/Hook/UseState'
+import UseEffect from '@/pages/Hook/UseEffect'
+import UseContext from '@/pages/Hook/UseContext'
+import UseMemo from '@/pages/Hook/UseMemo'
+import UseCallback from '@/pages/Hook/UseCallback'
+import UseReducer from '@/pages/Hook/UseReducer'
+import UseRef from '@/pages/Hook/UseRef'
+import CustomHook from '@/pages/Hook/CustomHook'
+import Fragments from '@/pages/Hook/Fragments'
 
 //System Test
 import BaseTest from '@/pages/BaseTest.tsx'
@@ -88,6 +88,10 @@ const routes = [
   {
     path: '/fragments',
     element: <Fragments />,
+  },
+  {
+    path: '/props',
+    element: <Props />,
   },
   // ------
   {
