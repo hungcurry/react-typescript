@@ -1,7 +1,6 @@
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 #root {
   width: 100%;
@@ -28,7 +27,7 @@ p {
   background-color: #3e0df0;
   color: white;
   border-radius: 40px;
-  p{
+  p {
     padding: 10px;
   }
 }
